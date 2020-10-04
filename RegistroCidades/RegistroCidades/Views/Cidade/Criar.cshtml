@@ -1,0 +1,53 @@
+﻿@model RegistroCidades.Models.Cidade
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Criar Cidade</h1>
+
+<h4>Cidade</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select asp-for="UF" class="form-control" id="conteudo_UF">
+                    <option>Selecione um estado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select asp-for="Regiao" class="form-control" id="conteudo_Regiao">
+                    <option>Selecione uma região</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input asp-for="CodIBGE" placeholder="Código IBGE" class="form-control" />
+                <span asp-validation-for="CodIBGE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Nome" placeholder="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Latitude" placeholder="Latitude" class="form-control" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Longitude" placeholder="Longitude" class="form-control" />
+                <span asp-validation-for="Longitude" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
