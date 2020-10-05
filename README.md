@@ -20,6 +20,10 @@ Para o desafio foi utilizado o SQL Server 2017, por questões de familiaridade c
 Foram testadas as funcionalidades implementadas e uma não funcionou 100% (Exclusão de items(Cidade)) e outras 3 não foram implementadas, além da aparência padrão que não foi muito alterada.
 
 Considerações finais: 
+
+Além de finalizar as implementações solicitadas e melhorar a parte visual, incluir uma função para não precisar recarregar os dados da toda vez que o "Index" é chamado, 
+Para algumas telas (as que utilizam mais de um modelo) criar uma ViewModel para permitir a manipulação dos objetos diretamente;
+
 Este desafio me proporcionou um momento de aprendizado, onde consegui aprender coisas novas e desenvolver novas habilidades que serão úteis.
 
 
