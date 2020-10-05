@@ -1,0 +1,59 @@
+﻿@model RegistroCidades.Models.Cidade
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>View</h1>
+
+<h4>Cidade</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select asp-for="UF.ID" class="form-control" id="conteudo_UF">
+                    <option>Selecione um estado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select asp-for="Regiao.ID" class="form-control" id="conteudo_Regiao">
+                    <option>Selecione uma região</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodIBGE" class="control-label"></label>
+                <input asp-for="CodIBGE" class="form-control" />
+                <span asp-validation-for="CodIBGE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Latitude" class="control-label"></label>
+                <input asp-for="Latitude" class="form-control" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Longitude" class="control-label"></label>
+                <input asp-for="Longitude" class="form-control" />
+                <span asp-validation-for="Longitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Editar" class="btn btn-primary" />
+                <input type="submit" value="Excluir" asp-action="Excluir" asp-route-id="CodIBGE" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

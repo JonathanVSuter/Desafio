@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -13,7 +15,6 @@ namespace RegistroCidades.Controllers
     public class CidadeController : Controller
     {
         CidadeDAO contextoCidade = new CidadeDAO();
-        
         public CidadeController() { }
         
         public IActionResult Index()
@@ -27,23 +28,24 @@ namespace RegistroCidades.Controllers
         public IActionResult Criar()
         {
             return View();
-        }
-        public List<Regiao> GetRegioesUF(int id_UF)
+        }        
+        public IActionResult Editar(int? id)
         {
-            RegiaoDAO contextoRegiao = new RegiaoDAO();
-            return contextoRegiao.GetAll().Where(x=>x.UF==id_UF).ToList();
-        }
-        public UF GetUFDaRegiao(int id_UF)
-        {
-            return new UFDAO().GetById(id_UF);
+            Cidade cidade;
+            if (id == null)
+            {
+                return NotFound();
+            }
+            cidade = contextoCidade.GetById((int)id);
+            return View(cidade);
         }
         public List<UF> GetUFs()
         {            
             return new UFDAO().GetAll();
-        }
+        } 
         public List<Cidade> GetCidades(string nome)
         {
-            return contextoCidade.GetAll().Where(x => x.Nome.Contains(nome)).ToList();
+            return contextoCidade.GetAll().Where(x => x.Nome == nome).ToList();
         }
         public List<Regiao> GetRegioes()
         {
@@ -51,11 +53,42 @@ namespace RegistroCidades.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("CodIBGE,Nome,Latitude,Longitude,UF,Regiao")] Cidade cidade)
+        public IActionResult Criar([Bind("CodIBGE,Nome,Latitude,Longitude,UF,Regiao")] Cidade cidade)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 contextoCidade.Add(cidade);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Index());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, [Bind("CodIBGE,Nome,Latitude,Longitude,UF,Regiao")] Cidade cidade)
+        {
+            if (id != cidade.CodIBGE)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    contextoCidade.Update(id, cidade);
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    if (!CidadeExists(cidade.CodIBGE))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(cidade);
@@ -68,8 +101,7 @@ namespace RegistroCidades.Controllers
             }
             Cidade item = contextoCidade.GetAll().FirstOrDefault(m=>m.CodIBGE == id);
             contextoCidade.Delete(item);
-
-            return View();
+            return View(Index());
         }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

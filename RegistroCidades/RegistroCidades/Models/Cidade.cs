@@ -13,8 +13,11 @@ namespace RegistroCidades.Models
         public string Nome { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
-        public int Regiao { get; set; }        
-        public int UF { get; set; } 
+        public Regiao Regiao { get; set; } = new Regiao();
+        public UF UF { get; set; } = new UF();
+        
+        //public int Regiao { get; set; }        
+        //public int UF { get; set; } 
     }
 
     

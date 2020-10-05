@@ -2,23 +2,18 @@
 @{
     ViewData["Title"] = "Cidades";
 }
-
 <h1>Cidades</h1>
-<p>
+<button class="btn btn-secondary">
     <a asp-action="Criar">Criar...</a>
-</p>
-<div class="form-group">
-    <input id="selectsreview" placeholder="Insira o nome da Cidade" class="form-control" />
-    <span class="text-danger"></span>
-</div>
+</button>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UF)
-            </th>
+                @Html.DisplayNameFor(model => model.UF.Sigla)
+            </th>            
             <th>
-                @Html.DisplayNameFor(model => model.Regiao)
+                @Html.DisplayNameFor(model => model.Regiao.Descricao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CodIBGE)
@@ -40,10 +35,10 @@
         {
         <tr>
             <th>
-                @Html.DisplayFor(model => item.UF)
+                @Html.DisplayFor(model => item.UF.Sigla)
             </th>
             <th>
-                @Html.DisplayFor(model => item.Regiao)
+                @Html.DisplayFor(model => item.Regiao.Descricao)
             </th>
             <th>
                 @Html.DisplayFor(model => item.CodIBGE)
@@ -59,7 +54,6 @@
             </td>
             <td>
                 <a asp-action="Editar" asp-route-id="@item.CodIBGE">Editar</a> |
-                <a asp-action="Detalhe" asp-route-id="@item.CodIBGE">Detalhes</a> |
                 <a asp-action="Excluir" asp-route-id="@item.CodIBGE">Excluir</a>
             </td>
         </tr>

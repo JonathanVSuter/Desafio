@@ -1,18 +1,4 @@
-﻿$('#document').on('keydown','#selectsreview'), function ()
-{
-    $.ajax({
-        type: 'GET',
-        url: '/Cidade/GetCidades',
-        dataType: 'json',
-        data:
-        {
-        },
-        success: function (response)
-        {
-            alert(response)
-        }
-
-})
+﻿
 $('#conteudo_UF').focus(function ()
 {
     $.ajax({
